@@ -125,7 +125,6 @@ netreq_reset(getdns_network_req *net_req)
 	_getdns_netreq_change_state(net_req, NET_REQ_NOT_SENT);
 	net_req->dnssec_status = GETDNS_DNSSEC_INDETERMINATE;
 	net_req->tsig_status = GETDNS_DNSSEC_INDETERMINATE;
-	net_req->query_id = 0;
 	net_req->response_len = 0;
 	/* Some fields to record info for return_call_reporting */
 	net_req->debug_start_time = 0;
@@ -944,6 +943,7 @@ _getdns_dns_req_new(getdns_context *context, getdns_eventloop *loop,
 	result->freed = NULL;
 	result->validating = 0;
 	result->is_dns_request = 1;
+	result->request_timed_out = 0;
 	result->chain = NULL;
 
 	network_req_init(result->netreqs[0], result,
